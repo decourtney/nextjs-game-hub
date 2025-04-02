@@ -1,11 +1,11 @@
 "use client";
 
-import { NextUIProvider } from "@nextui-org/react";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import { useRouter } from "next/navigation";
 import React, { createContext, ReactNode, useContext } from "react";
 import { SessionProvider } from "next-auth/react";
 import type { Session } from "next-auth";
+import { HeroUIProvider } from "@heroui/react";
 
 interface DeviceContextType {
   isMobile: boolean;
@@ -35,11 +35,11 @@ export function Providers({
   return (
     <SessionProvider session={session}>
       <NextThemesProvider attribute="class" defaultTheme="system" enableSystem>
-        <NextUIProvider navigate={router.push}>
+        <HeroUIProvider navigate={router.push}>
           <DeviceContext.Provider value={{ isMobile }}>
             {children}
           </DeviceContext.Provider>
-        </NextUIProvider>
+        </HeroUIProvider>
       </NextThemesProvider>
     </SessionProvider>
   );

@@ -1,6 +1,6 @@
 "use client";
 
-import { NavbarItem } from "@nextui-org/react";
+import { NavbarItem } from "@heroui/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -9,7 +9,7 @@ const NavLinks = () => {
 
   const links = [
     { label: "Games", href: "/games" },
-    { label: "Upload Game", href: "/upload" },
+    { label: "Dashboard", href: "/dashboard" },
     { label: "Another Link", href: "/" },
   ];
 

@@ -1,9 +1,9 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import { headers } from "next/headers";
-import Footer from "./Footer";
+import Footer from "./components/Footer";
 import "./globals.css";
-import Navbar from "./NavBar";
+import Navbar from "./components/Navbar";
 import { Providers } from "./Providers";
 import { getServerSession } from "next-auth";
 import { _nextAuthOptions } from "@/auth";
@@ -20,13 +20,13 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "PulseArt",
-  description: "Interpreting our world through art",
+  title: "",
+  description: "",
   openGraph: {
-    title: "PulseArt",
-    description: "Interpreting our world through art",
+    title: "",
+    description: "",
     url: "",
-    siteName: "PulseArt",
+    siteName: "",
     images: [
       {
         secureUrl: "https://INSERT_IMAGE",
@@ -46,8 +46,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "PulseArt",
-    description: "Interpreting our world through art",
+    title: "",
+    description: "",
     creator: "Donovan Courtney",
     images: ["https://INSERT_IMAGE"],
   },
@@ -75,7 +75,9 @@ export default async function RootLayout({
 
   return (
     <html lang="en" suppressHydrationWarning={true}>
-      <body className={`${geistSans.variable} ${geistMono.variable} bg-background`}>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} bg-background`}
+      >
         <Providers session={session} isMobile={isMobile}>
           <Navbar />
           <main className="md:px-5 scrollbar-hide text-content1">

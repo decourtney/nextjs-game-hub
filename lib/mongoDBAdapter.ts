@@ -1,3 +1,4 @@
+// Nextauth doesnt yet support mongoose, so we need to use MongoDB's native driver to interact with the database.
 import { MongoClient, ServerApiVersion } from "mongodb";
 
 if (!process.env.MONGODB_URI) {
@@ -31,6 +32,4 @@ if (process.env.NODE_ENV === "development") {
   client = new MongoClient(uri, options);
 }
 
-// Export a module-scoped MongoClient. By doing this in a
-// separate module, the client can be shared across functions.
 export default client;

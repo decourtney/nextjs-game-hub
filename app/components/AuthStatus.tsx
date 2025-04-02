@@ -1,6 +1,6 @@
 import React from "react";
 import UserPanel from "./UserPanel";
-import { Button, Link, NavbarContent, NavbarItem } from "@nextui-org/react";
+import { Button, Link, NavbarContent, NavbarItem } from "@heroui/react";
 import { useSession } from "next-auth/react";
 
 const AuthStatus = () => {

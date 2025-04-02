@@ -12,10 +12,10 @@ import {
   NavbarMenu,
   NavbarMenuItem,
   NavbarMenuToggle,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { useState, SVGProps } from "react";
-import AuthStatus from "./components/AuthStatus";
-import { useSession } from "next-auth/react";
+import AuthStatus from "./AuthStatus";
+import ActiveLink from "./ActiveLink";
 
 export const BrandLogo = () => {
   return (
@@ -77,10 +77,9 @@ export const SearchIcon = ({
 const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const links = [
-    { label: "Games", href: "/games" },
-    { label: "Upload Game", href: "/upload" },
-    { label: "Another Link", href: "/" },
+  const navLinks = [
+    { label: "Browse", href: "/games" },
+    { label: "Dashboard", href: "/dashboard" },
   ];
 
   const handleClose = () => {
@@ -94,29 +93,43 @@ const NavBar = () => {
       maxWidth="2xl"
       height={"3rem"}
       isBlurred={false}
-      className="bg-content2 border-b-1 border-content3 shadow-md"
+      className="bg-emerald-50 dark:bg-emerald-950 border-b-1 border-emerald-200 dark:border-emerald-800 shadow-md"
     >
       <NavbarContent justify="start">
         <NavbarMenuToggle
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-          className="sm:hidden"
+          className="sm:hidden text-emerald-700 dark:text-emerald-300"
         />
 
-        <NavbarBrand>
-          <BrandLogo />
-          <p className="font-bold">Jurble</p>
-        </NavbarBrand>
+        <Link
+          href="/"
+          className="flex items-center gap-2 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
+        >
+          <NavbarBrand>
+            <BrandLogo />
+            <p className="font-bold text-emerald-700 dark:text-emerald-300">
+              Jurble
+            </p>
+          </NavbarBrand>
+        </Link>
       </NavbarContent>
 
-      <NavbarContent className="hidden sm:flex gap-10 px-5" justify="center">
-        {links.map((link) => (
-          <NavbarItem key={`navbar-${link.label}`}>
-            <Link
-              // className={`${link.href === currentPath ? "text-zinc-100" : "nav-link"}`}
-              href={link.href}
-            >
-              {link.label}
-            </Link>
+      <NavbarContent className="hidden sm:flex px-5" justify="center">
+        {navLinks.map((navItem) => (
+          <NavbarItem key={`navbar-${navItem.label}`} className="h-full">
+            <ActiveLink href={navItem.href!}>
+              {({ isActive }) => (
+                <div
+                  className={`h-full px-1 content-center hover:text-emerald-600 dark:hover:text-emerald-400 hover:shadow-[inset_0_-4px_0_hsl(var(--nextui-primary))] pointer-events-auto transition-colors ${
+                    isActive
+                      ? "text-emerald-600 dark:text-emerald-400 shadow-[inset_0_-4px_0_hsl(var(--nextui-primary))]"
+                      : "text-emerald-700 dark:text-emerald-300"
+                  }`}
+                >
+                  {navItem.label}
+                </div>
+              )}
+            </ActiveLink>
           </NavbarItem>
         ))}
 
@@ -127,11 +140,16 @@ const NavBar = () => {
               mainWrapper: "h-full",
               input: "text-md",
               inputWrapper:
-                "h-full font-normal bg-content4 text-content1/50",
+                "h-full font-normal bg-emerald-100 dark:bg-emerald-900 text-emerald-700 dark:text-emerald-300",
             }}
             placeholder="Type to search..."
             size="md"
-            startContent={<SearchIcon size={18} />}
+            startContent={
+              <SearchIcon
+                size={18}
+                className="text-emerald-500 dark:text-emerald-400"
+              />
+            }
             type="search"
           />
         </Form>
@@ -139,15 +157,15 @@ const NavBar = () => {
 
       <AuthStatus />
 
-      <NavbarMenu>
-        {links.map((link) => (
-          <NavbarMenuItem key={`navbarmenu-${link.label}`}>
+      <NavbarMenu className="bg-emerald-50 dark:bg-emerald-950">
+        {navLinks.map((navItem) => (
+          <NavbarMenuItem key={`navbarmenu-${navItem.label}`}>
             <Link
-              // className={`${link.href === currentPath ? "text-zinc-100" : "nav-link"}`}
-              href={link.href}
+              href={navItem.href}
               onPress={handleClose}
+              className="text-emerald-700 dark:text-emerald-300 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
             >
-              {link.label}
+              {navItem.label}
             </Link>
           </NavbarMenuItem>
         ))}

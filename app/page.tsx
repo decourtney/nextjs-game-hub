@@ -1,58 +1,54 @@
-'use client'
+import { getServerSession } from "next-auth";
+import { _nextAuthOptions } from "@/auth";
+import dbConnect from "@/lib/dbConnect";
+import Game from "@/models/Game";
+import HomeClient from "./components/HomeClient";
 
-import Image from "next/image";
-import { Button, ButtonGroup } from "@nextui-org/button";
-import { useSession } from "next-auth/react";
-import { useState } from "react";
-
-export default function Home() {
-  const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
-
-  const handleDelete = async () => {
-    if (!email) {
-      setMessage("Please provide an email address.");
-      return;
-    }
-
-    try {
-      const response = await fetch("/api/account/delete", {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email }),
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        setMessage(`Account with email ${email} was deleted successfully.`);
-      } else {
-        setMessage(`Error: ${data.error || "Could not delete the account."}`);
-      }
-    } catch (error) {
-      console.error("Error deleting account:", error);
-      setMessage("An error occurred while deleting the account.");
-    }
+type GamePreview = {
+  _id: string;
+  title: string;
+  slug: string;
+  thumbnail?: string;
+  shortDescription?: string;
+  description: string;
+  engine: string;
+  stats: {
+    views: number;
+    plays: number;
   };
+};
 
-  return (
-    <div className="flex flex-col min-h-screen items-center gap-4">
-      <input
-        type="email"
-        placeholder="Enter email to delete"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        className="border rounded-md p-2 mt-12"
-      />
-      <button
-        onClick={handleDelete}
-        className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600"
-      >
-        Delete Account
-      </button>
-      {message && <p className="text-sm text-gray-700 mt-2">{message}</p>}
-    </div>
-  );
+async function getFeaturedGames(): Promise<GamePreview[]> {
+  try {
+    await dbConnect();
+    const games = await Game.find({ status: "published" })
+      .sort({ "stats.views": -1 })
+      .limit(6)
+      .lean();
+    return games.map((game) => ({
+      _id: String(game._id),
+      title: String(game.title),
+      slug: String(game.slug),
+      thumbnail: game.thumbnail ? String(game.thumbnail) : undefined,
+      shortDescription: game.shortDescription
+        ? String(game.shortDescription)
+        : undefined,
+      description: String(game.description),
+      engine: String(game.engine),
+      stats: {
+        views: Number(game.stats?.views || 0),
+        plays: Number(game.stats?.plays || 0),
+      },
+    }));
+  } catch (error) {
+    console.error("Error fetching featured games:", error);
+    return [];
+  }
+}
+
+export default async function Home() {
+  const session = await getServerSession(_nextAuthOptions);
+  const featuredGames = await getFeaturedGames();
+
+  return <HomeClient session={session} featuredGames={featuredGames} />;
 }

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import dbConnect from "@/lib/dbConnect";
-import { CredentialsUser } from "@/models/BaseUSerSchema";
+import { CredentialsUser } from "@/models/BaseUserSchema";
 
 // Validation function (replace with a library like Yup or Zod)
 function validateData(data: any) {

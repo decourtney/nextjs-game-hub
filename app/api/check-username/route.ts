@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import dbConnect from "@/lib/dbConnect"; // Ensure you have a DB connection utility
-import { User } from "@/models/BaseUSerSchema"; // Import your Mongoose user model
+import User from "@/models/User"; // Import your Mongoose user model
 
 // GET handler to check username availability
 export async function GET(request: NextRequest) {
