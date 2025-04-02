@@ -14,7 +14,6 @@ const LoginForm = () => {
     const result = await signIn("credentials", {
       email,
       password,
-      callbackUrl: "/",
     });
 
     console.log(result);
@@ -38,7 +37,10 @@ const LoginForm = () => {
           base: "max-w-[30rem] md:max-w-full",
           mainWrapper: "h-full",
           input: "text-md",
-          inputWrapper: "h-full font-normal bg-content4 text-content1/50",
+          inputWrapper:
+            "h-full font-normal bg-emerald-100 dark:bg-emerald-900 text-emerald-700 dark:text-emerald-300",
+          label: "text-emerald-700 dark:text-emerald-300",
+          errorMessage: "text-red-500 dark:text-red-400",
         }}
       />
 
@@ -54,21 +56,34 @@ const LoginForm = () => {
           base: "max-w-[30rem] md:max-w-full",
           mainWrapper: "h-full",
           input: "text-md",
-          inputWrapper: "h-full font-normal bg-content4 text-content1/50",
+          inputWrapper:
+            "h-full font-normal bg-emerald-100 dark:bg-emerald-900 text-emerald-700 dark:text-emerald-300",
+          label: "text-emerald-700 dark:text-emerald-300",
+          errorMessage: "text-red-500 dark:text-red-400",
         }}
       />
 
       <div className="flex gap-2 items-center">
-        <Button color="primary" type="submit">
+        <Button
+          color="primary"
+          type="submit"
+          className="bg-emerald-600 hover:bg-emerald-700 text-white"
+        >
           Log in
         </Button>
-        <span>
+        <span className="text-emerald-700 dark:text-emerald-300">
           or{" "}
-          <Link href="/register" className="underline">
+          <Link
+            href="/register"
+            className="text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300"
+          >
             Create account
           </Link>{" "}
           ·{" "}
-          <Link href="/" className="underline">
+          <Link
+            href="/"
+            className="text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300"
+          >
             Forgot password
           </Link>
         </span>

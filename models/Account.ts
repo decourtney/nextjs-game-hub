@@ -31,5 +31,4 @@ const AccountSchema = new Schema<IAccount>(
   { timestamps: true }
 );
 
-// Export the User model (reuse existing model if already compiled)
 export default models.Account || model<IAccount>("Account", AccountSchema);

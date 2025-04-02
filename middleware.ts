@@ -1,33 +1,22 @@
-import { getToken } from "next-auth/jwt";
+// middleware.ts
 import { NextRequest, NextResponse } from "next/server";
 
-const secret = process.env.NEXTAUTH_SECRET;
+export default async function middleware(req: NextRequest) {
+  const path = req.nextUrl.pathname;
+  const session = !!req.cookies.get("next-auth.session-token");
 
-export async function middleware(request: NextRequest) {
-  const token = await getToken({ req: request, secret });
-
-  if (!token) {
-    // Redirect to the custom sign-in page if not authenticated
-    const url = new URL("/login", request.url);
-    return NextResponse.redirect(url, 302);
-  }
-
-  // Example: Restrict access based on roles
-  const isDeleteAccountRoute = request.nextUrl.pathname.startsWith(
-    "/api/account/delete"
-  );
-
-  console.log("token:", token);
-  if (isDeleteAccountRoute && token.role !== "admin") {
-    return NextResponse.json(
-      { error: "Forbidden: Admins only" },
-      { status: 403 }
+  if (!session) {
+    return NextResponse.redirect(
+      new URL(`/api/auth/signin?callbackUrl=${path}`, req.url)
     );
   }
-
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ["/account", "/api/account"], // Adjust paths as needed
+  matcher: [
+    "/dashboard/:path*",
+    "/games/upload/:path*",
+    "/profile/:path*",
+  ],
 };

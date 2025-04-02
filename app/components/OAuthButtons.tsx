@@ -7,15 +7,15 @@ import React from "react";
 const OAuthButtons = () => {
   return (
     <div className="flex justify-around gap-2">
-      <Button fullWidth onPress={() => signIn("google", { callbackUrl: "/" })}>
+      <Button fullWidth onPress={() => signIn("google", {callbackUrl: "/dashboard"})}>
         Google
       </Button>
-      <Button fullWidth onPress={() => signIn("github", { callbackUrl: "/" })}>
+      <Button fullWidth onPress={() => signIn("github", {callbackUrl: "/dashboard"})}>
         GitHub
       </Button>
       <Button
         fullWidth
-        onPress={() => signIn("facebook", { callbackUrl: "/" })}
+        onPress={() => signIn("facebook", { callbackUrl: "/dashboard" })}
       >
         Facebook
       </Button>

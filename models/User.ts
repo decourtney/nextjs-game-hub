@@ -35,5 +35,4 @@ const UserSchema = new Schema<IUser>(
   }
 );
 
-// Export the User model (reuse existing model if already compiled)
 export default models.User || model<IUser>("User", UserSchema);

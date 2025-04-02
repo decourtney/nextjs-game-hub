@@ -134,16 +134,29 @@ const RegistrationForm = () => {
             type="text"
             value={formState.username}
             onChange={handleChange}
+            classNames={{
+              base: "max-w-full",
+              mainWrapper: "h-full",
+              input: "text-md",
+              inputWrapper:
+                "h-full font-normal bg-emerald-100 dark:bg-emerald-900 text-emerald-700 dark:text-emerald-300",
+              label: "text-emerald-700 dark:text-emerald-300",
+              errorMessage: "text-red-500 dark:text-red-400",
+            }}
           />
           {/* Display Username Status */}
           {usernameStatus === "checking" && (
-            <p className="ml-4 text-gray-500 text-sm">Checking username...</p>
+            <p className="ml-4 text-emerald-600 dark:text-emerald-400 text-sm">
+              Checking username...
+            </p>
           )}
           {usernameStatus === "available" && (
-            <p className="ml-4 text-green-700 text-sm">Username is available</p>
+            <p className="ml-4 text-emerald-700 dark:text-emerald-300 text-sm">
+              Username is available
+            </p>
           )}
           {usernameStatus === "taken" && (
-            <p className="ml-4 text-red-500 text-sm">
+            <p className="ml-4 text-red-500 dark:text-red-400 text-sm">
               Username is already taken
             </p>
           )}
@@ -158,6 +171,15 @@ const RegistrationForm = () => {
           type="password"
           value={formState.password}
           onChange={handleChange}
+          classNames={{
+            base: "max-w-full",
+            mainWrapper: "h-full",
+            input: "text-md",
+            inputWrapper:
+              "h-full font-normal bg-emerald-100 dark:bg-emerald-900 text-emerald-700 dark:text-emerald-300",
+            label: "text-emerald-700 dark:text-emerald-300",
+            errorMessage: "text-red-500 dark:text-red-400",
+          }}
         />
         <Input
           isRequired
@@ -168,9 +190,20 @@ const RegistrationForm = () => {
           type="password"
           value={formState.repassword}
           onChange={handleChange}
+          classNames={{
+            base: "max-w-full",
+            mainWrapper: "h-full",
+            input: "text-md",
+            inputWrapper:
+              "h-full font-normal bg-emerald-100 dark:bg-emerald-900 text-emerald-700 dark:text-emerald-300",
+            label: "text-emerald-700 dark:text-emerald-300",
+            errorMessage: "text-red-500 dark:text-red-400",
+          }}
         />
         {errors.passwordMatch && (
-          <p className="text-red-500 text-sm">{errors.passwordMatch}</p>
+          <p className="text-red-500 dark:text-red-400 text-sm">
+            {errors.passwordMatch}
+          </p>
         )}
         <Input
           isRequired
@@ -181,15 +214,29 @@ const RegistrationForm = () => {
           type="email"
           value={formState.email}
           onChange={handleChange}
+          classNames={{
+            base: "max-w-full",
+            mainWrapper: "h-full",
+            input: "text-md",
+            inputWrapper:
+              "h-full font-normal bg-emerald-100 dark:bg-emerald-900 text-emerald-700 dark:text-emerald-300",
+            label: "text-emerald-700 dark:text-emerald-300",
+            errorMessage: "text-red-500 dark:text-red-400",
+          }}
         />
       </div>
 
-      <div className="flex flex-col gap-1 p-4 border-1 border-content3 rounded-sm">
-        <h3 className="font-bold">Useless buttons</h3>
+      <div className="flex flex-col gap-1 p-4 border-1 border-emerald-200 dark:border-emerald-800 rounded-sm">
+        <h3 className="font-bold text-emerald-700 dark:text-emerald-300">
+          Useless buttons
+        </h3>
         <Checkbox
           name="button1"
           isSelected={formState.button1}
           onChange={handleChange}
+          classNames={{
+            label: "text-emerald-700 dark:text-emerald-300",
+          }}
         >
           I like this button.
         </Checkbox>
@@ -197,11 +244,14 @@ const RegistrationForm = () => {
           name="button2"
           isSelected={formState.button2}
           onChange={handleChange}
+          classNames={{
+            label: "text-emerald-700 dark:text-emerald-300",
+          }}
         >
           This button looks nice.
         </Checkbox>
 
-        <p>
+        <p className="text-emerald-600 dark:text-emerald-400">
           You can change your selections later, however doing so will not change
           their usefullness
         </p>
@@ -213,29 +263,51 @@ const RegistrationForm = () => {
             name="newsletter"
             isSelected={formState.newsletter}
             onChange={handleChange}
+            classNames={{
+              label: "text-emerald-700 dark:text-emerald-300",
+            }}
           >
             Sign me up for spam that I'll never read.
           </Checkbox>
-          <p className="invisible group-hover:visible leading-none text-sm text-center">
+          <p className="invisible group-hover:visible leading-none text-sm text-center text-emerald-600 dark:text-emerald-400">
             jk this button doesnt do anything either
           </p>
         </div>
 
-        <Checkbox name="tos" isSelected={formState.tos} onChange={handleChange}>
-          I accept the <Link className="underline">Terms of Service</Link>
+        <Checkbox
+          name="tos"
+          isSelected={formState.tos}
+          onChange={handleChange}
+          classNames={{
+            label: "text-emerald-700 dark:text-emerald-300",
+          }}
+        >
+          I accept the{" "}
+          <Link className="underline text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300">
+            Terms of Service
+          </Link>
         </Checkbox>
         {errors.tos && (
-          <p className="text-red-500 text-sm mt-1">{errors.tos}</p>
+          <p className="text-red-500 dark:text-red-400 text-sm mt-1">
+            {errors.tos}
+          </p>
         )}
       </div>
 
       <div className="flex gap-2">
-        <Button color="primary" type="submit">
+        <Button
+          color="primary"
+          type="submit"
+          className="bg-emerald-600 hover:bg-emerald-700 text-white"
+        >
           Create Account
         </Button>
-        <span className="content-center">
+        <span className="content-center text-emerald-700 dark:text-emerald-300">
           already have an account?{" "}
-          <Link href="login" className="underline">
+          <Link
+            href="login"
+            className="underline text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300"
+          >
             Log in
           </Link>
         </span>

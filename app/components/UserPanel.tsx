@@ -26,39 +26,41 @@ const ThemeSwitcher = dynamic(() => import("./ThemeSwitcher"), {
 
 const UserPanel = () => {
   const { data: session } = useSession();
-  console.log(session);
+
   return (
-    <NavbarContent justify="end">
-      <div className="flex items-center gap-4 group">
+    <NavbarContent justify="end" className="gap-2">
+      <div className="flex items-center gap-2 group">
         <Avatar
           isBordered
           radius="full"
           as="button"
-          color="success" // TODO: change color relative to loggedin/out
-          name="username" // TODO: replace with user info
-          className="h-auto"
-          size="md"
+          color="success"
+          name="username"
+          className="w-8 h-8"
+          size="sm"
           src={session!.user.image || "https://i.pravatar.cc/300"}
         />
-        <div className="group-hover:underline">{session!.user.username}</div>
+        <div className="text-sm font-medium group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
+          {session!.user.username}
+        </div>
       </div>
 
-      <Dropdown
-        placement="bottom-end"
-        className="py-2 px-2 rounded-lg bg-primary"
-      >
+      <Dropdown placement="bottom-end">
         <DropdownTrigger>
-          <Button isIconOnly color="default" variant="light">
-            <div className="text-xl">
-              <IoIosArrowDown />
-            </div>
+          <Button isIconOnly variant="light" className="w-8 h-8 min-w-8">
+            <IoIosArrowDown className="text-lg" />
           </Button>
         </DropdownTrigger>
 
-        <DropdownMenu aria-label="Profile Actions" variant="flat">
+        <DropdownMenu
+          aria-label="Profile Actions"
+          variant="flat"
+          className="bg-content2 dark:bg-content2 border border-content3"
+        >
           <DropdownItem
             key="color_mode"
             variant="light"
+            className="h-8"
             endContent={
               <div className="absolute top-0 right-0 h-full z-10">
                 <ThemeSwitcher />
@@ -68,23 +70,36 @@ const UserPanel = () => {
             {" "}
           </DropdownItem>
           <DropdownSection title="Explore" showDivider>
-            <DropdownItem key="my_library" endContent={<FaGamepad />}>
+            <DropdownItem
+              key="my_library"
+              endContent={<FaGamepad />}
+              className="text-content1"
+            >
               My Library
             </DropdownItem>
           </DropdownSection>
           <DropdownSection title="Create" showDivider>
-            <DropdownItem key="upload_game" endContent={<TiUpload />}>
+            <DropdownItem
+              key="upload_game"
+              endContent={<TiUpload />}
+              className="text-content1"
+            >
               Upload Game
             </DropdownItem>
           </DropdownSection>
           <DropdownSection title="Account" showDivider>
-            <DropdownItem key="view_profile" endContent={<FaHouseUser />}>
+            <DropdownItem
+              key="view_profile"
+              endContent={<FaHouseUser />}
+              className="text-content1"
+            >
               View Profile
             </DropdownItem>
             <DropdownItem
               key="logout"
               endContent={<BiLogOut />}
               onPress={() => signOut({ callbackUrl: "/" })}
+              className="text-content1"
             >
               Log Out
             </DropdownItem>

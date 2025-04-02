@@ -15,7 +15,6 @@ export async function POST(req: NextRequest) {
 
     // Parse the request body
     const body = await req.json();
-    console.log(body)
 
     // Create a new game document in MongoDB
     const game = await Game.create(body);

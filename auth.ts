@@ -44,6 +44,14 @@ export const _nextAuthOptions: NextAuthOptions = {
       }
       return token;
     },
+    // async redirect({ url, baseUrl }) {
+    //   // Allows relative callback URLs
+    //   if (url.startsWith("/")) return `${baseUrl}${url}`;
+    //   // Allows callback URLs on the same origin
+    //   else if (new URL(url).origin === baseUrl) return url;
+    //   // Default to dashboard for successful sign in
+    //   return `${baseUrl}/dashboard`;
+    // },
     async signIn({ user, account, profile }) {
       // console.log("Sign in callback:", user, account, profile);
 
@@ -80,7 +88,7 @@ export const _nextAuthOptions: NextAuthOptions = {
     },
   },
   pages: {
-    signIn: "/signin", // Custom sign-in page
+    signIn: "/login", // Custom sign-in page
     error: "/auth/error", // Custom error page
   },
   logger: {
